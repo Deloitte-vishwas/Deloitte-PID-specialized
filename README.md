@@ -12,6 +12,7 @@
 
 ### Ecomappv1
 - Implemented builder pattern using orderBuilder
+- Implemented Exceptions & its handling
 ### FactoryExample
 - Implemented Factory pattern using Factory Example
 ### Customannotations
