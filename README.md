@@ -1,4 +1,4 @@
-# Deloitte PID Sepcialized Java + Angular in session Examples & Labs
+# Deloitte PID Specialized Java + Angular in session Examples & Labs
 
 ## Day 1 - 27 Nov 2024
 
@@ -17,3 +17,16 @@
 - Implemented Factory pattern using Factory Example
 ### Customannotations
 - Implemented custom annotations example
+### String Applications
+- Email Parser, IPv4 Validator & Classifier, name swapper, username & domain
+  extracter
+
+## Day 3 - 29 Nov 2024
+### MultithreadExample1
+- Implementing threading & concurency
+### MultiThreadExample2
+- Implementing thread interruption & join
+### Multithread banking
+- Implementing synnchronized methods to prevent deadlocks & racecondition
+### Virtualthreading
+- Implementing Thread management using Executors & using virtual threads
