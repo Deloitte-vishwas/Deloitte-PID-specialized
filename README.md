@@ -30,3 +30,6 @@
 - Implementing synnchronized methods to prevent deadlocks & racecondition
 ### Virtualthreading
 - Implementing Thread management using Executors & using virtual threads
+### Volatile & atomic classes example
+- Implementing visibility of variables across threads(volatile), 
+  performing thread-safe operations without explicit synchronization(atomicClasses)
