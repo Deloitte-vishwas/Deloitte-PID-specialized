@@ -33,3 +33,5 @@
 ### Volatile & atomic classes example
 - Implementing visibility of variables across threads(volatile), 
   performing thread-safe operations without explicit synchronization(atomicClasses)
+### SquareNumbers
+- Calculating square of 1000 numbers using multithreading
