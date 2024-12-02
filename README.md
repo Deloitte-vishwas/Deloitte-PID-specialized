@@ -35,3 +35,14 @@
   performing thread-safe operations without explicit synchronization(atomicClasses)
 ### SquareNumbers
 - Calculating square of 1000 numbers using multithreading
+
+## Day 4 - 02 Dec 2024
+### Generics Demo
+- Implementing a generics container for demonstration & its usage
+### Stream API Labs
+- Alphabetical Sorting by Last Name
+- Unique Sorted Integers
+- Summing Even Numbers from String Representations
+- Student Grade-Based Grouping
+### Eommerce App v3
+- Implementing Ecommerce Application using Generics, Lambda Expressions & Stream API
