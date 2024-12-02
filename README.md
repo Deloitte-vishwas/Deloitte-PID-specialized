@@ -46,3 +46,7 @@
 - Student Grade-Based Grouping
 ### Eommerce App v3
 - Implementing Ecommerce Application using Generics, Lambda Expressions & Stream API
+### Console Example
+- Implementing Example using Console
+### Sum Average
+- Implementing Sum average using Scanner class & formatted output
