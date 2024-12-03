@@ -50,3 +50,13 @@
 - Implementing Example using Console
 ### Sum Average
 - Implementing Sum average using Scanner class & formatted output
+
+## Day 5 - 03 Dec 2024
+### Scan Sum
+- Implementing File Reading & finding Sum of float values
+### Paths Demo
+- Implementing paths object creation & usage
+### ecomappv4
+- Implementing initial dataload & multithreading for ecommerce app
+### Serialization Demo
+- Creating & using Serialization of Objects
