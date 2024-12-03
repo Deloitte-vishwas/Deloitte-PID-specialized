@@ -49,4 +49,13 @@ public class Customer implements Entity<Long>{
                 ", email='" + email + '\'' +
                 '}';
     }
+
+    public static Customer fromCSV(String s) {
+        String[] fields = s.split(",");
+        Customer customer = new Customer();
+        customer.setId(Long.parseLong(fields[0]));
+        customer.setCustomerName(fields[1]);
+        customer.setEmail(fields[2]);
+        return customer;
+    }
 }

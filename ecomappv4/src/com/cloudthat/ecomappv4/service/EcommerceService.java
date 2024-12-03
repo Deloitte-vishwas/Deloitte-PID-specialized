@@ -10,6 +10,7 @@ import com.cloudthat.ecomappv4.repository.Repository;
 import com.cloudthat.ecomappv4.utils.FileDataLoader;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class EcommerceService {
 
@@ -80,5 +81,31 @@ public class EcommerceService {
 
     public void loadInitialData(){
         FileDataLoader<Product, Long> productLoader = new FileDataLoader<>(productRepository, "data/products.csv", Product::fromCSV);
+        FileDataLoader<Customer, Long> customerLoader = new FileDataLoader<>(customerRepository, "data/customers.csv", Customer::fromCSV);
+        FileDataLoader<Order, Long> orderLoader = new FileDataLoader<>(orderRepository, "data/orders.csv", Order::fromCSV);
+
+        CompletableFuture.allOf(
+                productLoader.loadDataAsync(),
+                orderLoader.loadDataAsync(),
+                customerLoader.loadDataAsync()
+        ).join();
+
+//        productLoader.loadData();
+//        customerLoader.loadData();
+//        orderLoader.loadData();
+    }
+
+    public void displayAllProducts(){
+        List<Product> products = productRepository.findAll();
+        for (Product p: products){
+            System.out.println(p);
+        }
+    }
+
+    public void displayAllOrders() {
+        List<Order> orders = orderRepository.findAll();
+        for (Order o: orders){
+            System.out.println(o);
+        }
     }
 }

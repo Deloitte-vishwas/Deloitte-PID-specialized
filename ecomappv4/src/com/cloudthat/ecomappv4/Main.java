@@ -8,6 +8,7 @@ import com.cloudthat.ecomappv4.repository.InMemoryRepository;
 import com.cloudthat.ecomappv4.service.EcommerceService;
 
 import java.util.Arrays;
+import java.util.concurrent.CompletableFuture;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,15 +20,19 @@ public class Main {
         InMemoryRepository<Order, Long> orderRepository = new InMemoryRepository<>();
 
         EcommerceService service = new EcommerceService(productRepository,orderRepository,customerRepository);
+        service.loadInitialData();
+
+
 
 //        // Create a new product
-//        Product newProduct1 = new Product(1L,"Laptop", 25000.00);
+//        Product newProduct1 = new Product(25L,"Laptop", 25000.00);
 //        service.createProduct(newProduct1);
 //
-//        Product newProduct2 = new Product(2L,"Computer", 25000.00);
+//        Product newProduct2 = new Product(26L,"Computer", 25000.00);
 //        service.createProduct(newProduct2);
 //
 //        System.out.println("Added Products successfully");
+        service.displayAllProducts();
 //
 //        Customer newCustomer1 = new Customer(1L, "Vishwas", "vishwas@cloudthat.com");
 //        Customer newCustomer2 = new Customer(2L,"Anusha","anusha@cloudthat.com");
@@ -46,13 +51,16 @@ public class Main {
 //        System.out.println("Orders added successfully");
 //
 //        System.out.println("Orders in the system are: ");
-//        try {
-//            System.out.println(service.findOrderById(1L));
-//            System.out.println(service.findOrderById(2L));
-//            System.out.println(service.findOrderById(3L));
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
+        try {
+            System.out.println(service.findOrderById(1L));
+            System.out.println(service.findOrderById(2L));
+            System.out.println(service.findOrderById(3L));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("Orders in the System: ");
+        service.displayAllOrders();
 
     }
 }

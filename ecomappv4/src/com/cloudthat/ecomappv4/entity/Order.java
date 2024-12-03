@@ -1,28 +1,24 @@
 package com.cloudthat.ecomappv4.entity;
 
+import com.cloudthat.ecomappv4.repository.Repository;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Order implements Entity<Long> {
 
     private Long id;
-    private Customer customer;
-    private List<Product> products;
+    private Long customerId;
+    private List<Long> products;
 
     public Order() {
-    }
-
-    public Order(Long id, Customer customer, List<Product> products) {
-        this.id = id;
-        this.customer = customer;
-        this.products = products;
-    }
-
-    public Order(Long id, Customer customer, Product product) {
-        this.id = id;
-        this.customer = customer;
         this.products = new ArrayList<>();
-        this.products.add(product);
+    }
+
+    public Order(Long id, Long customerId, List<Long> products) {
+        this.id = id;
+        this.customerId = customerId;
+        this.products = new ArrayList<>();
     }
 
     @Override
@@ -35,27 +31,41 @@ public class Order implements Entity<Long> {
         this.id = id;
     }
 
-    public Customer getCustomer() {
-        return customer;
+
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
-    public List<Product> getProducts() {
+    public List<Long> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(List<Long> products) {
         this.products = products;
+    }
+
+    public void setProducts(Long productId) {
+        this.products.add(productId);
+    }
+
+    public static Order fromCSV(String s) {
+        String[] fields = s.split(",");
+        Order order = new Order();
+        order.setId(Long.parseLong(fields[0]));
+        order.setCustomerId(Long.parseLong(fields[1]));
+        order.setProducts(Long.parseLong(fields[2]));
+        return order;
     }
 
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", customer=" + customer +
+                ", customerId=" + customerId +
                 ", products=" + products +
                 '}';
     }
