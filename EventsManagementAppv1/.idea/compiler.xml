@@ -8,8 +8,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="serviceregistry" />
+        <module name="configserver" />
       </profile>
-      <profile name="Annotation profile for venueservice" enabled="true">
+      <profile name="Annotation profile for eventservice" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -23,6 +24,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="configserver" options="-parameters" />
       <module name="eventservice" options="-parameters" />
       <module name="serviceregistry" options="-parameters" />
       <module name="venueservice" options="-parameters" />

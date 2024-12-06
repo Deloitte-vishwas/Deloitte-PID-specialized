@@ -82,11 +82,15 @@ public class VenueServiceImpl implements VenueService{
     }
 
     @Override
-    public List<VenueAvailabilityModel> getBookedSlots(Long venueId) {
-        List<VenueAvailability> venueAvailabilities = venueAvailabilityRepository.findAllByVenueId(venueId);
-        return venueAvailabilities.stream()
-                .map(this::venueAvailabilityToVenueAvailabilityModel)
-                .toList();
+    public List<VenueAvailabilityModel> getBookedSlots(Long venueId, String date) {
+        List<VenueAvailability> venueAvailabilities;
+        if(date != null){
+            return  venueAvailabilityRepository.findAllByVenueIdAndDate(venueId,date);
+        }else{
+            return  venueAvailabilityRepository.findAllByVenueId(venueId).stream()
+                    .map(this::venueAvailabilityToVenueAvailabilityModel)
+                    .toList();
+        }
     }
 
 
