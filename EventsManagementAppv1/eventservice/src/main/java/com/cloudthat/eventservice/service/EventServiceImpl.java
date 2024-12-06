@@ -3,6 +3,8 @@ package com.cloudthat.eventservice.service;
 import com.cloudthat.eventservice.entity.Category;
 import com.cloudthat.eventservice.entity.Event;
 import com.cloudthat.eventservice.exception.ResourceNotFoundException;
+import com.cloudthat.eventservice.external.client.VenueAvailabilityModel;
+import com.cloudthat.eventservice.external.client.VenueService;
 import com.cloudthat.eventservice.model.EventModel;
 import com.cloudthat.eventservice.repository.CategoryRepository;
 import com.cloudthat.eventservice.repository.EventRepository;
@@ -24,9 +26,17 @@ public class EventServiceImpl implements EventService{
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    VenueService venueService;
+
     @Override
     public EventModel createEvent(EventModel eventModel) {
         Event savedEvent = eventRepository.save(eventModelToEvent(eventModel));
+        VenueAvailabilityModel venueAvailabilityModel = new VenueAvailabilityModel();
+        venueAvailabilityModel.setVenueId(eventModel.getVenueId());
+        venueAvailabilityModel.setStartDateTime(eventModel.getStartDateTime());
+        venueAvailabilityModel.setEndDateTime(eventModel.getEndDateTime());
+        venueService.bookVenue(eventModel.getVenueId(),venueAvailabilityModel);
         return eventToEventModel(savedEvent);
     }
 
