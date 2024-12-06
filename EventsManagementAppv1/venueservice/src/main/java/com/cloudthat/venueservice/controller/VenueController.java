@@ -52,4 +52,10 @@ public class VenueController {
         String bookingSuccess = venueService.bookVenue(venueId, availabilityModel);
         return new ResponseEntity<>(new ApiResponse(true, "Venue booked Succesfully", bookingSuccess), HttpStatus.OK);
     }
+
+    @GetMapping("/{venueId}/bookedSlots")
+    public ResponseEntity<ApiResponse> getBookedSlots(@PathVariable("venueId") Long venueId){
+        List<VenueAvailabilityModel> availabilityModels = venueService.getBookedSlots(venueId);
+        return new ResponseEntity<>(new ApiResponse(true, "Booked Slots Fetched Successfully", availabilityModels), HttpStatus.OK);
+    }
 }

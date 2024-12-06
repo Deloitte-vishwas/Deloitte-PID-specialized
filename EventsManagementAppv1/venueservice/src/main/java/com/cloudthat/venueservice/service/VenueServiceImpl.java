@@ -81,6 +81,14 @@ public class VenueServiceImpl implements VenueService{
         return "Venue booked successfully";
     }
 
+    @Override
+    public List<VenueAvailabilityModel> getBookedSlots(Long venueId) {
+        List<VenueAvailability> venueAvailabilities = venueAvailabilityRepository.findAllByVenueId(venueId);
+        return venueAvailabilities.stream()
+                .map(this::venueAvailabilityToVenueAvailabilityModel)
+                .toList();
+    }
+
 
     protected Venue venueModelToVenue(VenueModel venueModel){
         Venue venue = new Venue();
@@ -116,6 +124,7 @@ public class VenueServiceImpl implements VenueService{
 
     protected VenueAvailability venueAvailabilityModelToVenueAvailability(VenueAvailabilityModel venueAvailabilityModel){
         VenueAvailability venueAvailability = new VenueAvailability();
+        venueAvailability.setId(venueAvailabilityModel.getId());
         venueAvailability.setVenueId(venueAvailabilityModel.getVenueId());
         venueAvailability.setStartDateTime(venueAvailabilityModel.getStartDateTime());
         venueAvailability.setEndDateTime(venueAvailabilityModel.getEndDateTime());
@@ -125,6 +134,7 @@ public class VenueServiceImpl implements VenueService{
     }
     protected VenueAvailabilityModel venueAvailabilityToVenueAvailabilityModel(VenueAvailability venueAvailability){
         VenueAvailabilityModel venueAvailabilityModel = new VenueAvailabilityModel();
+        venueAvailabilityModel.setId(venueAvailability.getId());
         venueAvailabilityModel.setVenueId(venueAvailability.getVenueId());
         venueAvailabilityModel.setStartDateTime(venueAvailability.getStartDateTime());
         venueAvailabilityModel.setEndDateTime(venueAvailability.getEndDateTime());

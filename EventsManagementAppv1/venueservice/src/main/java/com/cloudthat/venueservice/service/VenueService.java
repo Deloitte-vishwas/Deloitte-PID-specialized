@@ -17,4 +17,6 @@ public interface VenueService {
     String deleteVenue(Long venueId);
 
     String bookVenue(Long venueId, VenueAvailabilityModel availabilityModel);
+
+    List<VenueAvailabilityModel> getBookedSlots(Long venueId);
 }
