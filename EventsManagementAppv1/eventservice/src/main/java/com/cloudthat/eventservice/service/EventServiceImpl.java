@@ -1,36 +1,40 @@
 package com.cloudthat.eventservice.service;
 
+import com.cloudthat.eventservice.entity.Category;
 import com.cloudthat.eventservice.entity.Event;
 import com.cloudthat.eventservice.exception.ResourceNotFoundException;
 import com.cloudthat.eventservice.model.EventModel;
+import com.cloudthat.eventservice.repository.CategoryRepository;
 import com.cloudthat.eventservice.repository.EventRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Service
+@Slf4j
 public class EventServiceImpl implements EventService{
 
     @Autowired
     private EventRepository eventRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
     public EventModel createEvent(EventModel eventModel) {
-        Event event = eventRepository.save(eventModelToEvent(eventModel));
-        return eventToEventModel(event);
+        Event savedEvent = eventRepository.save(eventModelToEvent(eventModel));
+        return eventToEventModel(savedEvent);
     }
 
     @Override
     public EventModel getEvent(Long eventId) {
-        Event event = null;
-        try {
-            event = eventRepository.findById(eventId).get();
-        } catch (Exception e) {
-            throw new ResourceNotFoundException("Event", "ID", eventId);
-        }
-        return eventToEventModel(event);
+        return eventRepository.findById(eventId)
+                .map(this::eventToEventModel)
+                .orElseThrow(() -> new ResourceNotFoundException("Event", "ID", eventId));
     }
 
     @Override
@@ -82,6 +86,10 @@ public class EventServiceImpl implements EventService{
         event.setDescription(eventModel.getDescription());
         event.setVenueId(eventModel.getVenueId());
         event.setOrganizerId(eventModel.getOrganizerId());
+        event.setEventStatus(eventModel.getEventStatus());
+//        event.setCategories(eventModel.getCategories());
+        event.setStartDateTime(eventModel.getStartDateTime());
+        event.setEndDateTime(eventModel.getEndDateTime());
 
         return event;
     }
@@ -94,6 +102,10 @@ public class EventServiceImpl implements EventService{
         eventModel.setDescription(event.getDescription());
         eventModel.setVenueId(event.getVenueId());
         eventModel.setOrganizerId(event.getOrganizerId());
+        eventModel.setEventStatus(event.getEventStatus());
+//        eventModel.setCategories(event.getCategories());
+        eventModel.setStartDateTime(event.getStartDateTime());
+        eventModel.setEndDateTime(event.getEndDateTime());
 
         return eventModel;
     }
