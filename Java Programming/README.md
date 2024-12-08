@@ -41,9 +41,13 @@
 - Implementing a generics container for demonstration & its usage
 ### Stream API Labs
 - Alphabetical Sorting by Last Name
+  - Sort a list of names( first and last) by their last names, case insensitively but converted to upper case for sorting purposes
 - Unique Sorted Integers
+  - Given a list of integes with duplicates, sort the list in ascending order & remove duplicates.
 - Summing Even Numbers from String Representations
+  - Compute the sum of all even numbers in a list of strings.
 - Student Grade-Based Grouping
+  - Given a list of students with their names & grades, group the students by grade
 ### Eommerce App v3
 - Implementing Ecommerce Application using Generics, Lambda Expressions & Stream API
 ### Console Example
