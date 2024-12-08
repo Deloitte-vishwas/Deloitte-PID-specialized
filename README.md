@@ -2,7 +2,7 @@
 
 ## Java Programming
 
-Folder Java Programming - see [README](./Java Programming/README.md)
+Folder Java Programming - see [README](./Java%20Programming/README.md)
 
 ## Spring Boot Microservices App
 
