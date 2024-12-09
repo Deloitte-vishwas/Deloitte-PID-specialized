@@ -4,13 +4,19 @@ import com.cloudthat.eventservice.entity.Category;
 import com.cloudthat.eventservice.entity.Event;
 import com.cloudthat.eventservice.exception.ResourceNotFoundException;
 import com.cloudthat.eventservice.external.client.VenueAvailabilityModel;
+import com.cloudthat.eventservice.external.client.VenueModel;
 import com.cloudthat.eventservice.external.client.VenueService;
+import com.cloudthat.eventservice.model.ApiResponse;
 import com.cloudthat.eventservice.model.EventModel;
+import com.cloudthat.eventservice.model.EventResponse;
 import com.cloudthat.eventservice.repository.CategoryRepository;
 import com.cloudthat.eventservice.repository.EventRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Objects;
@@ -28,6 +34,10 @@ public class EventServiceImpl implements EventService{
 
     @Autowired
     VenueService venueService;
+
+
+    @Autowired
+    RestTemplate restTemplate;
 
     @Override
     public EventModel createEvent(EventModel eventModel) {
@@ -86,6 +96,29 @@ public class EventServiceImpl implements EventService{
 //        event.setIsDeleted(true);
 //        eventRepository.save(event);
         return "Event with id "+ eventId + " deleted successfully";
+    }
+
+    @Override
+    public EventResponse getEventDetails(Long eventId) {
+        Event event = eventRepository.findById(eventId).get();
+
+        EventResponse eventResponse = new EventResponse();
+        eventResponse.setId(event.getId());
+        eventResponse.setName(event.getName());
+        eventResponse.setDescription(event.getDescription());
+        eventResponse.setEventStatus(event.getEventStatus());
+
+        Long venueId = event.getVenueId();
+
+        ApiResponse apiResponse = restTemplate.getForObject("http://VENUE-SERVICE/api/venues/"+venueId, ApiResponse.class);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        VenueModel venueModel = objectMapper.convertValue(apiResponse.getData(),VenueModel.class);
+        eventResponse.setVenue(venueModel);
+
+        eventResponse.setOrganizerId(event.getOrganizerId());
+
+        return eventResponse;
     }
 
 

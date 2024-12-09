@@ -31,4 +31,8 @@ The approximate stucture of the App be:
 ### Day 3: 6th Dec 2024
 - Lab 4: Creating Venue Service
 - Lab 5: Externalizing Configuration using config server
-- Lab 6: Open Feign Client Communication, submit interface screenshot
+- Lab 6: Open Feign Client Communication
+### Day 4: 9th Dec 2024
+- Lab 7: Error Propogation using ErrorDecoder
+- Lab 8: Adding Zipkin Tracing for Microservices Application
+- 

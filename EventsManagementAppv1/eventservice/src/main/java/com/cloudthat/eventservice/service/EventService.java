@@ -1,6 +1,7 @@
 package com.cloudthat.eventservice.service;
 
 import com.cloudthat.eventservice.model.EventModel;
+import com.cloudthat.eventservice.model.EventResponse;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface EventService {
     EventModel updateEvent(Long eventId, EventModel eventModel);
 
     String deleteEvent(Long eventId);
+
+    EventResponse getEventDetails(Long eventId);
 }

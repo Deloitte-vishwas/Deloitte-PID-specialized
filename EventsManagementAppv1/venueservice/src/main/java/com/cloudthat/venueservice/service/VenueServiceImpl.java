@@ -7,10 +7,12 @@ import com.cloudthat.venueservice.model.VenueAvailabilityModel;
 import com.cloudthat.venueservice.model.VenueModel;
 import com.cloudthat.venueservice.repository.VenueAvailabilityRepository;
 import com.cloudthat.venueservice.repository.VenueRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 @Service
@@ -76,8 +78,8 @@ public class VenueServiceImpl implements VenueService{
     public String bookVenue(Long venueId, VenueAvailabilityModel availabilityModel) {
         try {
             Venue venue = venueRepository.findById(venueId).get();
-        } catch (Exception e) {
-            throw new ResourceNotFoundException("Venue", "Id", venueId);
+        } catch (NoSuchElementException e) {
+            throw new ResourceNotFoundException("Venue","ID",venueId);
         }
 
 

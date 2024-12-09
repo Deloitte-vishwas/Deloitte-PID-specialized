@@ -10,5 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(name = "VENUE-SERVICE/api/venues")
 public interface VenueService {
     @PostMapping("/{venueId}/bookVenue")
-    public ResponseEntity<ApiResponse> bookVenue(@PathVariable("venueId") Long venueId, @RequestBody VenueAvailabilityModel availabilityModel);
+    public ResponseEntity<ApiResponse> bookVenue(
+            @PathVariable("venueId") Long venueId,
+            @RequestBody VenueAvailabilityModel availabilityModel);
 }
