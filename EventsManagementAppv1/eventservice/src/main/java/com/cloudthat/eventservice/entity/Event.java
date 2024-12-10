@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Length;
 
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -48,7 +49,7 @@ public class Event {
             joinColumns = @JoinColumn(name = "event_id"), // Foreign key for Event
             inverseJoinColumns = @JoinColumn(name = "category_id") // Foreign key for Category
     )
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
 
 //    @Convert(converter = TrueFalseConverter.class)
 //    private Boolean isDeleted = false;

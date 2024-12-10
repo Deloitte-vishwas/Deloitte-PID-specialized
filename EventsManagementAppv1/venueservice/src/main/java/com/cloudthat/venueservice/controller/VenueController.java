@@ -7,6 +7,7 @@ import com.cloudthat.venueservice.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,12 +18,14 @@ public class VenueController {
     @Autowired
     private VenueService venueService;
 
+    @PreAuthorize("hasAuthority('Admin')")
     @PostMapping
     public ResponseEntity<ApiResponse> createVenue(@RequestBody VenueModel venueModel){
         VenueModel venueModel1 = venueService.createVenue(venueModel);
         return new ResponseEntity<>(new ApiResponse(true, "Venue Created Succesfully", venueModel1), HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasAuthority('Admin') || hasAuthority('Customer') || hasAuthority('SCOPE_internal')")
     @GetMapping("/{venueId}")
     public ResponseEntity<ApiResponse> getVenue(@PathVariable("venueId") Long venueId){
         VenueModel venueModel1 = venueService.getVenue(venueId);

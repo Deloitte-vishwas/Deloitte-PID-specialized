@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,6 +19,6 @@ public class Category {
     private Long id;
     private String categoryName;
 
-//    @ManyToMany(mappedBy = "categories") // Inverse side of the relationship
-//    private Set<Event> events;
+    @ManyToMany(mappedBy = "categories") // Inverse side of the relationship
+    private Set<Event> events = new HashSet<>();
 }

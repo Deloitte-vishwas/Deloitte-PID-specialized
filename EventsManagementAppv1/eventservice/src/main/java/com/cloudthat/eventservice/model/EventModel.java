@@ -26,5 +26,5 @@ public class EventModel {
     private Long venueId;
     private Long organizerId;
     private EventStatus eventStatus;
-    private Set<CategoryModel> categories;
+    private Set<Long> categoryIds;
 }

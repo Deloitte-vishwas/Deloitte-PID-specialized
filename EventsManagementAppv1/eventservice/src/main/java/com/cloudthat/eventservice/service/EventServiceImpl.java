@@ -11,13 +11,13 @@ import com.cloudthat.eventservice.model.EventModel;
 import com.cloudthat.eventservice.model.EventResponse;
 import com.cloudthat.eventservice.repository.CategoryRepository;
 import com.cloudthat.eventservice.repository.EventRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -35,25 +35,42 @@ public class EventServiceImpl implements EventService{
     @Autowired
     VenueService venueService;
 
-
     @Autowired
     RestTemplate restTemplate;
 
+    @Autowired
+    ObjectMapper mapper;
+
     @Override
     public EventModel createEvent(EventModel eventModel) {
-        Event savedEvent = eventRepository.save(eventModelToEvent(eventModel));
+//        Event savedEvent = eventRepository.save(eventModelToEvent(eventModel));
+        Event event = mapper.convertValue(eventModel,Event.class);
+
+        Set<Category> categories = new HashSet<>();
+        for(Long categoryId: eventModel.getCategoryIds()){
+            Category category = categoryRepository.findById(categoryId).orElse(null);
+            if(category != null){
+                categories.add(category);
+            }
+        }
+
+        event.setCategories(categories);
+        Event savedEvent = eventRepository.save(event);
         VenueAvailabilityModel venueAvailabilityModel = new VenueAvailabilityModel();
         venueAvailabilityModel.setVenueId(eventModel.getVenueId());
         venueAvailabilityModel.setStartDateTime(eventModel.getStartDateTime());
         venueAvailabilityModel.setEndDateTime(eventModel.getEndDateTime());
+
+        log.info("Booking Venue");
         venueService.bookVenue(eventModel.getVenueId(),venueAvailabilityModel);
-        return eventToEventModel(savedEvent);
+//        return eventToEventModel(savedEvent);
+        return mapper.convertValue(savedEvent,EventModel.class);
     }
 
     @Override
     public EventModel getEvent(Long eventId) {
         return eventRepository.findById(eventId)
-                .map(this::eventToEventModel)
+                .map(e -> mapper.convertValue(e,EventModel.class))
                 .orElseThrow(() -> new ResourceNotFoundException("Event", "ID", eventId));
     }
 
@@ -61,7 +78,7 @@ public class EventServiceImpl implements EventService{
     public List<EventModel> getAllEvents() {
         List<Event> eventList = eventRepository.findAll();
         return eventList.stream()
-                .map(this::eventToEventModel).toList();
+                .map(e -> mapper.convertValue(e,EventModel.class)).toList();
     }
 
     @Override
@@ -86,7 +103,8 @@ public class EventServiceImpl implements EventService{
 
         eventRepository.save(eventDB);
 
-        return eventToEventModel(eventDB);
+//        return eventToEventModel(eventDB);
+        return mapper.convertValue(eventDB,EventModel.class);
     }
 
     @Override
@@ -121,35 +139,35 @@ public class EventServiceImpl implements EventService{
         return eventResponse;
     }
 
+// We can use the Object mapper instead of below code
+//    protected Event eventModelToEvent(EventModel eventModel){
+//        Event event = new Event();
+//        event.setId(eventModel.getId());
+//        event.setName(eventModel.getName());
+//        event.setDescription(eventModel.getDescription());
+//        event.setVenueId(eventModel.getVenueId());
+//        event.setOrganizerId(eventModel.getOrganizerId());
+//        event.setEventStatus(eventModel.getEventStatus());
+////        event.setCategories(eventModel.getCategories());
+//        event.setStartDateTime(eventModel.getStartDateTime());
+//        event.setEndDateTime(eventModel.getEndDateTime());
+//
+//        return event;
+//    }
 
-    protected Event eventModelToEvent(EventModel eventModel){
-        Event event = new Event();
-        event.setId(eventModel.getId());
-        event.setName(eventModel.getName());
-        event.setDescription(eventModel.getDescription());
-        event.setVenueId(eventModel.getVenueId());
-        event.setOrganizerId(eventModel.getOrganizerId());
-        event.setEventStatus(eventModel.getEventStatus());
-//        event.setCategories(eventModel.getCategories());
-        event.setStartDateTime(eventModel.getStartDateTime());
-        event.setEndDateTime(eventModel.getEndDateTime());
-
-        return event;
-    }
-
-    protected EventModel eventToEventModel(Event event){
-
-        EventModel eventModel = new EventModel();
-        eventModel.setId(event.getId());
-        eventModel.setName(event.getName());
-        eventModel.setDescription(event.getDescription());
-        eventModel.setVenueId(event.getVenueId());
-        eventModel.setOrganizerId(event.getOrganizerId());
-        eventModel.setEventStatus(event.getEventStatus());
-//        eventModel.setCategories(event.getCategories());
-        eventModel.setStartDateTime(event.getStartDateTime());
-        eventModel.setEndDateTime(event.getEndDateTime());
-
-        return eventModel;
-    }
+//    protected EventModel eventToEventModel(Event event){
+//
+//        EventModel eventModel = new EventModel();
+//        eventModel.setId(event.getId());
+//        eventModel.setName(event.getName());
+//        eventModel.setDescription(event.getDescription());
+//        eventModel.setVenueId(event.getVenueId());
+//        eventModel.setOrganizerId(event.getOrganizerId());
+//        eventModel.setEventStatus(event.getEventStatus());
+////        eventModel.setCategories(event.getCategories());
+//        eventModel.setStartDateTime(event.getStartDateTime());
+//        eventModel.setEndDateTime(event.getEndDateTime());
+//
+//        return eventModel;
+//    }
 }
