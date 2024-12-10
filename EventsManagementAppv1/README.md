@@ -42,8 +42,6 @@ The approximate stucture of the App be:
 - Lab 11: Implementing Category Entity in event service
 
 ### Day 5: 10th Dec 2024
-- Lab 12: Creating API Gateway for Events Manaement Application
+- Lab 12: Creating API Gateway for Events Management Application
 - Lab 13: Implementing Circuit Breaker for Event Management Application
-- Lab 14: Implementing User Service
-- Lab 15: Implementing JWT authentication in API Gateway
-- Lab 16: Implementing Okta Authentication
+- Lab 14: Implementing Okta Authentication
