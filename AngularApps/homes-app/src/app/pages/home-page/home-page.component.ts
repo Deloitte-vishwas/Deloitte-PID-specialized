@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { HAHeaderComponent } from '../../components/haheader/haheader.component';
-import { HAFooterComponent } from '../../components/hafooter/hafooter.component';
 import { HousingLocationComponent } from '../../components/housing-location/housing-location.component';
 import { HousingLocation } from '../../interfaces/housing-location';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home-page',
-  imports: [CommonModule, HAHeaderComponent, HAFooterComponent, HousingLocationComponent],
+  imports: [CommonModule, HousingLocationComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })

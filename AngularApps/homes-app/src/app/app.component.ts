@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HomePageComponent } from './pages/home-page/home-page.component';
+import { HAFooterComponent } from './components/hafooter/hafooter.component';
+import { HAHeaderComponent } from './components/haheader/haheader.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HomePageComponent],
+  imports: [RouterOutlet, HAFooterComponent, HAHeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
