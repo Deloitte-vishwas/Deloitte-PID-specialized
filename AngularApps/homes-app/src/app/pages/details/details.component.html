@@ -1,1 +1,11 @@
-<p>details works! ID: {{ housingLocationId }}</p>
+<section>
+    <div class="col">
+        <h2>Location Details</h2>
+        <p>Location Name: {{ housingLocation?.name }}</p>
+        <p>Location: City: {{ housingLocation?.city }}</p>
+
+    </div>
+    <div class="col">
+        <img [src]="housingLocation?.photo">
+    </div>
+</section>
