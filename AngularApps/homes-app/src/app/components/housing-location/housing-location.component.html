@@ -6,7 +6,7 @@
     </figure>
     <div class="card-body">
       <h2 class="card-title">{{ housingLocation.name }}</h2>
-      <p>{{ housingLocation.city }},{{ housingLocation.state}}</p>
+      <p class="listing-location">{{ housingLocation.city }},{{ housingLocation.state}}</p>
       <div class="card-actions justify-end">
         <a class="btn btn-primary" [routerLink]="['/details', housingLocation.id]" >View</a>
       </div>

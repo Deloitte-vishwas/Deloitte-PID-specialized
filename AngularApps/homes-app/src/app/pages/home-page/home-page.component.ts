@@ -12,9 +12,20 @@ import { HousingService } from '../../services/housing.service';
 })
 export class HomePageComponent {
   housingService: HousingService = inject(HousingService);
-   housingLocations: HousingLocation[] = [];
+  housingLocations: HousingLocation[] = [];
+  filteredLocations: HousingLocation[] = [];
 
    constructor(){
     this.housingLocations = this.housingService.getAllHousingLocations();
+    this.filteredLocations = this.housingLocations;
+   }
+
+   filterResults(text: string){
+    if(!text){
+      this.filteredLocations = this.housingLocations;
+      return;
+    }
+
+    this.filteredLocations = this.housingLocations.filter((housingLocation) => housingLocation?.city.toLowerCase().includes(text.toLowerCase()));
    }
 }
