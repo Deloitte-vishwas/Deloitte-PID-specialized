@@ -118,4 +118,9 @@ export class HousingService {
     return this.housingLocations.find(housingLocation => housingLocation.id === id);
   }
 
+  submitApplication(firstName: string, lastName: string, email: string){
+    console.log(`${firstName} ${lastName} with the emailid ${email} submitted an application`);
+    
+  }
+
 }
