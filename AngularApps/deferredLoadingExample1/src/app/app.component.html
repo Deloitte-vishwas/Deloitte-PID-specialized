@@ -1,0 +1,23 @@
+<div class="p-4">
+  <h1 class="text-xl font-bold">Deferred Loading with Angular</h1>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="text-center my-4">
+    <p>Loading user information...</p>
+    <div class="spinner"></div>
+  </div>
+
+  <!-- User Information -->
+  <ng-container *ngIf="!isLoading; else loadingTemplate">
+    <div *ngIf="user as currentUser">
+      <p><strong>Name:</strong> {{ currentUser.name }}</p>
+      <p><strong>Age:</strong> {{ currentUser.age }}</p>
+      <p><strong>Email:</strong> {{ currentUser.email }}</p>
+    </div>
+  </ng-container>
+
+  <!-- Loading Template (Reusable) -->
+  <ng-template #loadingTemplate>
+    <p class="text-gray-500">Please wait while we fetch the details...</p>
+  </ng-template>
+</div>
