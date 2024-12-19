@@ -1,0 +1,9 @@
+.listing-photo{
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.listing-location::before{
+    content: url('/assets/location-pin.svg') / '';
+}

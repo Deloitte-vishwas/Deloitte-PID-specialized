@@ -1,0 +1,12 @@
+.listing-location::before {
+    content: url('/assets/location-pin.svg') / '';
+  }
+  .listing-wifi::before {
+    content: url('/assets/wifi.png') / '';
+  }
+  .listing-units::before {
+    content: url('/assets/units.png') / '';
+  }
+  .listing-laundry::before {
+    content: url('/assets/laundry.png') / '';
+  }

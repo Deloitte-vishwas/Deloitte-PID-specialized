@@ -1,0 +1,22 @@
+<div class="w-full space-2">
+    <section class="space-x-2 px-20">
+        <form class="flex gap-4">
+            <input class="input input-bordered w-full max-w-xs" type="text" placeholder="Filter by City" [(ngModel)]="inputValue" [ngModelOptions]="{standalone: true}" #filter>
+            <button class="btn btn-md btn-outline btn-primary" type="button" (click)="filterResults(filter.value)" >Search</button>
+            <button class="btn btn-circle btn-outline" (click)="clearInput()" >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+        </form>
+    </section>
+<section class="results">
+    <!-- <app-housing-location *ngFor="let housingLocation of filteredLocations" [housingLocation]="housingLocation" /> -->
+     @if (!isResultsEmpty()){
+     @for (housingLocation of filteredLocations; track housingLocation.id) {
+        <app-housing-location [housingLocation]="housingLocation" />
+     }
+    } @else {
+        <h2 class="text-xl font-bold">No Property found!!</h2>
+    }
+
+</section>
+</div>
