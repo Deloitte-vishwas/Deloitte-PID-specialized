@@ -1,21 +1,8 @@
-<div class="navbar bg-base-100">
+<div class="navbar bg-base-300">
   <div class="flex-1 px-5">
     <a routerLink="/">
     <img src="../../../assets/logo.svg" alt="logo" aria-hidden="true"/>
   </a>
   </div>
-  <!-- <div class="flex-none">
-    <ul class="menu menu-horizontal px-1">
-      <li><a>Link</a></li>
-      <li>
-        <details>
-          <summary>Parent</summary>
-          <ul class="bg-base-100 rounded-t-none p-2">
-            <li><a>Link 1</a></li>
-            <li><a>Link 2</a></li>
-          </ul>
-        </details>
-      </li>
-    </ul>
-  </div> -->
+  <input type="checkbox" class="toggle" checked="checked" (click)="toggleTheme()" />
 </div>

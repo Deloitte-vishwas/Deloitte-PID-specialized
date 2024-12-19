@@ -8,5 +8,10 @@ import { RouterLink } from '@angular/router';
   styleUrl: './haheader.component.css'
 })
 export class HAHeaderComponent {
+  currentTheme: string = 'light';
 
+  toggleTheme() {
+    this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', this.currentTheme);
+  }
 }

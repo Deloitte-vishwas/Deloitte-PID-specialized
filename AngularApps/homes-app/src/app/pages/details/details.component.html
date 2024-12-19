@@ -1,49 +1,74 @@
-  <div class="flex flex-col md:flex-row h-screen w-full">
+<div *ngIf="showAlert" role="alert" class="alert alert-success">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-6 w-6 shrink-0 stroke-current"
+    fill="none"
+    viewBox="0 0 24 24">
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+  <span>You have successfully applied on {{ currentDate| date}}!!</span>
+</div>
+<div class="breadcrumbs text-sm px-6">
+  <ul>
+    <li><a routerLink="/">Home</a></li>
+    <li><a>{{ housingLocation?.name }}</a></li>
+  </ul>
+</div>
+<div class="flex flex-col md:flex-row h-screen w-full">
     <!-- Left Section -->
-    <div class="md:w-1/2 w-full flex flex-col gap-4 p-6 bg-gray-200">
-      <div class="breadcrumbs text-sm">
-        <ul>
-          <li><a routerLink="/">Home</a></li>
-          <li><a>{{ housingLocation?.name }}</a></li>
-        </ul>
-      </div>
-      <div class="flex-1 bg-white shadow-md rounded-md p-4">
+    <div class="md:w-1/2 w-full flex flex-col gap-4 p-6">
+      <div class="flex-1 shadow-md rounded-md p-4 bg-base-300">
         <h2 class="text-xl font-bold mb-4"><u>Location Details</u></h2>
-        <div class="text-gray-600 space-y-2">
+        <div class="space-y-2">
             <ul>
-                <li class="listing-location">{{ housingLocation?.city }}, {{ housingLocation?.state }}</li>
+                <li class="listing-location">{{ housingLocation?.city | titlecase }}, {{ housingLocation?.state }}</li>
                 <li class="listing-units">Number of Units {{housingLocation?.availableUnits}}</li>
-                <li class="listing-wifi">Wifi</li>
-                <li class="listing-laundry">Laundry </li>
+                @if (housingLocation!.wifi ){
+                  <li class="listing-wifi">Wifi</li>
+                }
+                
+                @if(housingLocation!.laundry){
+                  <li class="listing-laundry">Laundry </li>
+                }
             </ul>
         </div>
       </div>
-      <div class="flex-1 bg-white shadow-md rounded-md p-4">
+      <div class="flex-1 shadow-md rounded-md p-4 bg-base-300">
         <div class="space-y-4">
         <h2 class="text-xl font-bold mb-4"><u> Apply Now </u></h2>
-        <form [formGroup]="applyForm" (submit)="submitApplication()" class="space-y-2">
-          <div class="flex gap-4 space-y-2">
-            <label class="h-6 w-full " for="first-name">First Name</label>
-            <input class="h-6 w-full  bg-gray-200" id="first-name" type="text" formControlName="firstName" />
+        @if ( housingLocation!.availableUnits > 0 ) {
+          <form [formGroup]="applyForm" (submit)="submitApplication()" class="space-y-2">
+            <div class="flex gap-4 space-y-2">
+              <label class="h-6 w-full " for="first-name">First Name</label>
+              <input class="h-6 w-full rounded outline" id="first-name" type="text" formControlName="firstName" />
+            </div>
+  
+            <div class="flex gap-4 space-y-2">
+              <label class="h-6 w-full " for="last-name">Last Name</label>
+              <input class="h-6 w-full rounded outline" id="last-name" type="text" formControlName="lastName" />
+            </div>
+            <div class="flex gap-4 space-y-2">
+              <label class="h-6 w-full " for="email">Email</label>
+              <input class="h-6 w-full rounded outline" id="email" type="text" formControlName="email" />
+            </div>
+            <button  type="submit" class="btn btn-outline btn-primary h-8 w-1/3 rounded mx-auto">Apply Now</button>
+          </form>
+        } @else {
+          <div class="flex w-full h-full object-cover justify-center">
+            <h1 class="text-xl text-red-400 font-bold mb-4">Currently Unavailable to Apply!!</h1>
           </div>
-
-          <div class="flex gap-4 space-y-2">
-            <label class="h-6 w-full " for="last-name">Last Name</label>
-            <input class="h-6 w-full bg-gray-200" id="last-name" type="text" formControlName="lastName" />
-          </div>
-          <div class="flex gap-4 space-y-2">
-            <label class="h-6 w-full " for="email">Email</label>
-            <input class="h-6 w-full bg-gray-200" id="email" type="text" formControlName="email" />
-          </div>
-          <button  type="submit" class="h-8 w-1/3 bg-green-400 rounded mx-auto">Apply Now</button>
-
-        </form>
+        }
+        
       </div>
       </div>
       </div>
 
     <!-- Right Section -->
-    <div class="md:w-1/2 w-full">
+    <div class="md:w-1/2 w-full p-6 mx-auto">
       <img [src]="housingLocation?.photo" alt="{{ housingLocation?.name }}" class="object-cover w-full h-full">
     </div>
   </div>
