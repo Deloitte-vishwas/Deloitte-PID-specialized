@@ -1,0 +1,14 @@
+<div class="card card-compact bg-base-300 w-96 shadow-xl">
+    <figure>
+      <img class="listing-photo"
+        [src]="housingLocation.photo"
+        alt="{{ housingLocation.name }}" />
+    </figure>
+    <div class="card-body">
+      <h2 class="card-title">{{ housingLocation.name }}</h2>
+      <p class="listing-location">{{ housingLocation.city | titlecase }},{{ housingLocation.state}}</p>
+      <div class="card-actions justify-end">
+        <a class="btn btn-primary" [routerLink]="['/details', housingLocation.id]" >View</a>
+      </div>
+    </div>
+  </div>
